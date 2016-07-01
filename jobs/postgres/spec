@@ -17,6 +17,18 @@ templates:
 
   sql/setup-replication.sql: sql/setup-replication.sql
 
+provides:
+- name: db
+  type: postgresql
+  properties:
+  - postgres.config.port
+  - pgpool.users
+
+consumes:
+- name: db
+  type: postgresql
+
+
 properties:
   postgres.config:
     description: A map of postgresql.conf configuration directives, keyed by name.
@@ -79,12 +91,6 @@ properties:
   postgres.replication.master:
     description: IP address of the preferred master node (should be the 0th postgres node's IP)
     default: ~
-  postgres.replication.pool:
-    description: List of all IP address of nodes in the replication pool (including the master)
-    default: []
-  postgres.pgpool.pool:
-    description: List of all IP address of PGPoolII nodes that front this Postgres node
-    default: []
 
   pgpool.users:
     description: "A list of {username: ..., password: ...} objects for defining pgpool users"

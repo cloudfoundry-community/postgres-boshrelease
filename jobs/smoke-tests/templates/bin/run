@@ -1,10 +1,10 @@
 #!/bin/bash
 <%
-master = p('postgres.smoke-tests.cluster.master')
+master = link("db").instances.first.address
 slaves = []
-p('postgres.smoke-tests.cluster.slaves', []).each do |slave|
-  if slave != master
-    slaves.push(slave)
+link("db").instances.each do |instance|
+  if instance.address != master
+    slaves.push(instance.address)
   end
 end
 %>
@@ -35,7 +35,7 @@ echo "*:*:*:<%= p('postgres.smoke-tests.target.username') %>:<%= p('postgres.smo
 chmod 0600 ~/.pgpass
 
 echo "INITIALIZING PGBENCH DATABASE"
-pgbench -h <%= p('postgres.smoke-tests.target.address') %> \
+pgbench -h <%= master %> \
         -p <%= p('postgres.smoke-tests.target.port') %> \
         -U <%= p('postgres.smoke-tests.target.username') %> \
         -i 2>&1
@@ -45,7 +45,7 @@ CPUS=$(grep -c ^processor /proc/cpuinfo)
 CLIENTS=<%= p('postgres.smoke-tests.target.clients') %>
 CLIENTS=$(( CLIENTS - (CLIENTS % CPUS) + CPUS ))
 time \
-pgbench -h <%= p('postgres.smoke-tests.target.address') %> \
+pgbench -h <%= master %> \
         -p <%= p('postgres.smoke-tests.target.port') %> \
         -U <%= p('postgres.smoke-tests.target.username') %> \
         -c ${CLIENTS} -j ${CPUS} -T 125 -C 2>&1 &
@@ -66,7 +66,7 @@ echo "pgbench exited $?"
 echo
 
 
-psql -h <%= p('postgres.smoke-tests.target.address') %> \
+psql -h <%= master %> \
      -p <%= p('postgres.smoke-tests.target.port') %> \
      -U <%= p('postgres.smoke-tests.target.username') %> \
      --file "/var/vcap/jobs/smoke-tests/sql/pgbench_cleanup.sql"

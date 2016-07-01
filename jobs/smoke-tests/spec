@@ -3,6 +3,11 @@ name: smoke-tests
 packages:
   - postgres
   - pgrt
+
+consumes:
+- name: db
+  type: postgresql
+
 templates:
   bin/run: bin/run
   helpers/ctl_setup.sh: helpers/ctl_setup.sh
@@ -10,8 +15,6 @@ templates:
   sql/pgbench_cleanup.sql: sql/pgbench_cleanup.sql
 
 properties:
-  postgres.smoke-tests.target.address:
-    description: Hostname or IP address to run pgbench against, for generating load.
   postgres.smoke-tests.target.port:
     description: Port to run pgbench against, for generating load.
     default: 5432
@@ -27,12 +30,6 @@ properties:
   postgres.smoke-tests.backend.port:
     description: Port that PostgreSQL itself (not PGPoolII) is listening on, for replication health checking.
     default: 6432
-
-  postgres.smoke-tests.cluster.master:
-    description: IP address of the write master in a replicated Postgres cluster.
-  postgres.smoke-tests.cluster.slaves:
-    description: List of IP addresses of the read slaves in a replicated Postgres cluster.
-    default: []
 
   postgres.smoke-tests.thresholds.replication-lag:
     description: Maximum allowable replication lag for any single read slave from master (in kb).

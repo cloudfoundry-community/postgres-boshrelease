@@ -24,10 +24,6 @@ jobs:
           port: 6432
         replication:
           enabled: true
-          master: (( grab jobs.postgres.networks.postgres1.static_ips[0] ))
-          pool:   (( grab jobs.postgres.networks.postgres1.static_ips ))
-        pgpool:
-          pool:   (( grab jobs.postgres.networks.postgres1.static_ips ))
         hba:
           - host all all 0.0.0.0/0 md5
           - host all all ::/0 md5
@@ -46,7 +42,6 @@ jobs:
           - username: smoke-tests
             password: if-ya-got-em
         backend:
-          hosts: (( grab jobs.postgres.networks.postgres1.static_ips ))
           port: 6432
         config:
           port: 5432
@@ -68,16 +63,11 @@ jobs:
       postgres:
         smoke-tests:
           target:
-            address:  (( grab jobs.postgres.properties.postgres.replication.master ))
             port:     5432
             username: smoke-tests
             password: if-ya-got-em
           backend:
             port:     6432
-
-          cluster:
-            master: (( grab jobs.postgres.properties.postgres.replication.master ))
-            slaves: (( grab jobs.postgres.properties.postgres.replication.pool ))
 
 
 

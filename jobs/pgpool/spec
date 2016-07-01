@@ -17,6 +17,10 @@ templates:
   config/pcppass:     config/.pcppass
   config/passwd:      config/passwd
 
+consumes:
+- name: db
+  type: postgresql
+
 properties:
   pgpool.debug:
     description: Enable extra debugging wherever possible.  Intended for BOSH release maintainers.
@@ -26,9 +30,6 @@ properties:
     description: "A list of {username: ..., password: ...} objects for defining pgpool users"
     default: []
 
-  pgpool.backend.hosts:
-    description: A list of backend host / IPs to pool connections to.
-    default: []
   pgpool.backend.port:
     description: The port that the PostgreSQL backends are listening on
     default: 6432
