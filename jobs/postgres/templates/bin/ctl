@@ -105,7 +105,7 @@ opted not to filter out those errors.
 
 EOF
 <% p('pgpool.users', []).each do |user| %>
-    echo <%=debug user%>
+    echo "<%= user.attributes%>"
     echo >>$LOG_DIR/$JOB_NAME.log "[postgres] setting up user <%= user['username'] %>"
     echo "[$(date)] setting up user <%= user['username'] %>"
     set -x
