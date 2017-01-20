@@ -110,6 +110,7 @@ EOF
     echo "[$(date)] setting up user <%= user['username'] %>"
     <% admin = '-DRS' %> 
     <% admin = '-drs' if user["admin"] %> 
+    echo <%=admin%>
 
     
     set -x
