@@ -107,11 +107,8 @@ EOF
 <% p('pgpool.users', []).each do |user| %>
     echo >>$LOG_DIR/$JOB_NAME.log "[postgres] setting up user <%= user['username'] %>"
     echo "[$(date)] setting up user <%= user['username'] %>"
-    echo <%=user['admin']%>
-    echo <%=user["admin"]%>
     <% admin = '-DRS' %> 
     <% admin = '-drs' if user["admin"] %> 
-    echo <%=admin%>
 
     
     set -x
