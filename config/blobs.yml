@@ -1,13 +1,16 @@
----
-pgrt/pgrt:
-  object_id: b7968265-d373-404d-b6e0-12caa15f9f98
-  sha: 2f6c7cc5a7b89712be68f2663fdf3fa9f997a2fa
-  size: 7391896
-postgres/postgresql-9.5.1.tar.bz2:
-  object_id: c3acc49c-a9ec-49a1-ae82-e97a00672695
-  sha: 905bc31bc4d500e9498340407740a61835a2022e
-  size: 18441638
 pgpool2/pgpool-II-3.5.4.tar.gz:
+  size: 2237911
   object_id: c0821167-44de-470e-ad15-48309d6dd44a
   sha: 4ea15dc8bb740baf720b18f182b400ea60b1ae45
-  size: 2237911
+pgrt/pgrt:
+  size: 7391896
+  object_id: b7968265-d373-404d-b6e0-12caa15f9f98
+  sha: 2f6c7cc5a7b89712be68f2663fdf3fa9f997a2fa
+postgres/postgresql-10.0.tar.bz2:
+  size: 19639147
+  object_id: 5be63a34-5fb3-46c5-7c56-68ac25d47ee4
+  sha: 4c26f81278f7da12f46f2ff4fda5b0311e191b95
+postgres/postgresql-10.0.tar.bz2.sha256:
+  size: 90
+  object_id: 561fbed8-e591-4ff2-76cc-dc5ada3d604f
+  sha: 042385efc34f73a1b04081daf5ef5d9b11d49dbd
