@@ -35,6 +35,10 @@ properties:
     description: What port to connect to on backend PostgreSQL nodes.
     default:     6432
 
+  keepalived.enabled:
+    description: By default keepalived will be enabled. When we use dns, keepalived will be disabled.
+    default: true
+
   keepalived.interface:
     description: What Linux kernel network interface to attach teh floating VIP to; or 'auto' to use the default.
     default: auto
