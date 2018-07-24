@@ -91,25 +91,33 @@ case $1 in
     cp ${CONF_DIR}/keepalived.tpl ${CONF_DIR}/keepalived.conf
     <% end -%>
 
-    $SBIN_DIR/keepalived -l -D -n \
-        -f $CONF_DIR/keepalived.conf \
-        --pid=$RUN_DIR/keepalived.pid \
-        --vrrp_pid=${RUN_DIR}/vrrp.pid \
-        --checkers_pid=${RUN_DIR}/checkers.pid \
+    <% if p("keepalived.enabled") == "true" -%>
+        $SBIN_DIR/keepalived -l -D -n \
+            -f $CONF_DIR/keepalived.conf \
+            --pid=$RUN_DIR/keepalived.pid \
+            --vrrp_pid=${RUN_DIR}/vrrp.pid \
+            --checkers_pid=${RUN_DIR}/checkers.pid \
+    <% else -%>
+        echo "1" > $RUN_DIR/keepalived.pid
+    <% end -%>
     ;;
 
   stop)
     echo "Stopping keepalived... ($(date))"
-    for PIDFILE in ${RUN_DIR}/*.pid; do
-        pid=$(cat $PIDFILE)
-        [[ -z "${pid}" ]] && continue
-        kill "${pid}"
-        wait_pid_death "${pid}" 25
-        if pid_is_running "${pid}"; then
-            kill -9 ${pid}
-        fi
+    <% if p("keepalived.enabled") == "true" -%>
+        for PIDFILE in ${RUN_DIR}/*.pid; do
+            pid=$(cat $PIDFILE)
+            [[ -z "${pid}" ]] && continue
+            kill "${pid}"
+            wait_pid_death "${pid}" 25
+            if pid_is_running "${pid}"; then
+                kill -9 ${pid}
+            fi
+            rm -f $PIDFILE
+        done
+    <% else -%>
         rm -f $PIDFILE
-    done
+    <% end -%>
 
     ;;
 
