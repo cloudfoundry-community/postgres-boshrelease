@@ -78,20 +78,20 @@ case $1 in
     mkdir -p $RUN_DIR $LOG_DIR
     chown -R vcap:vcap $RUN_DIR $LOG_DIR
 
-    <% if p("keepalived.interface") == "auto" -%>
-    interface=$(interface_for_ip <%= p("vip") %>)
-    if [[ $? != 0 || -z ${interface} ]]; then
-        echo "Could not autodetect interface to use for <%= p("vip") %>. Cannot continue."
-        exit 1
-    fi
-    if grep "interface auto" ${CONF_DIR}/keepalived.tpl > /dev/null; then
-        sed "s/interface auto/interface ${interface}/" ${CONF_DIR}/keepalived.tpl > ${CONF_DIR}/keepalived.conf
-    fi
-    <% else -%>
-    cp ${CONF_DIR}/keepalived.tpl ${CONF_DIR}/keepalived.conf
-    <% end -%>
-
     <% if p("keepalived.enabled") == "true" -%>
+        <% if p("keepalived.interface") == "auto" -%>
+        interface=$(interface_for_ip <%= p("vip") %>)
+        if [[ $? != 0 || -z ${interface} ]]; then
+            echo "Could not autodetect interface to use for <%= p("vip") %>. Cannot continue."
+            exit 1
+        fi
+        if grep "interface auto" ${CONF_DIR}/keepalived.tpl > /dev/null; then
+            sed "s/interface auto/interface ${interface}/" ${CONF_DIR}/keepalived.tpl > ${CONF_DIR}/keepalived.conf
+        fi
+        <% else -%>
+        cp ${CONF_DIR}/keepalived.tpl ${CONF_DIR}/keepalived.conf
+        <% end -%>
+
         $SBIN_DIR/keepalived -l -D -n \
             -f $CONF_DIR/keepalived.conf \
             --pid=$RUN_DIR/keepalived.pid \
