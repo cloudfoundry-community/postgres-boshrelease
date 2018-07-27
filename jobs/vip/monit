@@ -4,8 +4,10 @@ check process haproxy
   stop program  "/var/vcap/jobs/vip/bin/haproxy stop"
   group vcap
 
+<% if p("keepalived.enabled") == "true" -%>
 check process keepalived
   with pidfile /var/vcap/sys/run/vip/keepalived.pid
   start program "/var/vcap/jobs/vip/bin/keepalived start"
   stop program  "/var/vcap/jobs/vip/bin/keepalived stop"
   group vcap
+<% end -%>
