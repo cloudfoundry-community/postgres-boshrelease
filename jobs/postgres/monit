@@ -1,13 +1,13 @@
 check process postgres
   with pidfile /var/vcap/sys/run/postgres/postgres.pid
-  start program "/var/vcap/jobs/postgres/bin/ctl start"
+  start program "/var/vcap/jobs/postgres/bin/ctl start" with timeout 60 seconds
   stop  program "/var/vcap/jobs/postgres/bin/ctl stop"
   group vcap
 
 <% if p('postgres.replication.enabled') %>
 check process monitor
   with pidfile /var/vcap/sys/run/postgres/monitor.pid
-  start program "/var/vcap/jobs/postgres/bin/monitor start"
+  start program "/var/vcap/jobs/postgres/bin/monitor start" with timeout 60 seconds
   stop  program "/var/vcap/jobs/postgres/bin/monitor stop"
   group vcap
 <% end %>
