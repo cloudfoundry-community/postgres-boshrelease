@@ -36,7 +36,7 @@ properties:
     default:     6432
 
   keepalived.enabled:
-    description: By default keepalived will be enabled. When we use dns, keepalived will be disabled.
+    description: By default keepalived will be enabled. If you wish to roll your own VRRP-like system, disable this.
     default: true
 
   keepalived.interface:
