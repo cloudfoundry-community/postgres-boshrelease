@@ -150,3 +150,28 @@ The following parameters affect high availability:
 
   - `vip.vip` - Which IP to use as a VIP that is traded between the
     two nodes.
+
+### HA Failure Modes
+
+Our HA solution is focused on preventing downtime in the face of
+upgrades or other single-node failure. As such, we do not attempt to
+solve scenarios where the two databases cannot communicate with one
+another (e.g. network failure). In this case, it is possible that the
+replica believes the master to be down, and will promote itself to be
+master. The Postgres servers are then in a state of "split-brain" and
+requests to the DB will be split between the two nodes.
+
+To mitigate this, each node checks to see who is master. If both
+nodes are master (split-brain), both immediately shut down to prevent
+inconsistent data states. *This will result in downtime*. But we
+downtime is preferable over inconsistent database states.
+
+### Recovery From Failure Mode
+
+After the proper database is chosen to be master, SSH into that node,
+become root, and monit start `monitor`, `postgres`, and `haproxy`.
+
+Then, SSH into the replica node, become root, and monit start
+`monitor`, `postgres`, and `haproxy`.
+
+The Postgres nodes will then run as normal.

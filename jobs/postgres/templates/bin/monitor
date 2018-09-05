@@ -53,7 +53,17 @@ case $1 in
     while true; do
       sleep 1
       if is_master; then
-        continue
+        if ! is_master $MASTER_IP <%= port %>; then
+          continue
+        else
+          echo "[monitor] split-brain detected. both nodes are master. shutting down haproxy to prevent inconsistent data"
+          sleep 2 #done to ensure the other node notices split-brain as well.
+          /var/vcap/bosh/bin/monit stop postgres
+          /var/vcap/bosh/bin/monit stop haproxy
+          /var/vcap/bosh/bin/monit stop monitor
+          rm -f $RUN_DIR/monitor.pid
+          exit 0
+        fi
       fi
 
       # we are a replica, determine who we talk to
