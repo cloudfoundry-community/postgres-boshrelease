@@ -6,6 +6,6 @@
 If the two nodes notice both are master (which can occur in certain
 cases, see README.md for more information), we have opted to have
 both VMs shut down their Postgres processes in the interest of
-data integrity. To assist in this process, we have added an errand
+data integrity. To assist in this process, we have added a script
 to start the processes again. Please see README.md for more
 information on this process.

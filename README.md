@@ -173,8 +173,14 @@ fashion. We do not attempt to solve this.
 
 ### Recovery From Failure Mode
 
-After the proper database is chosen to be master, run 
-`bosh run-errand recover --instance postgres/#` and replace `#` with
-the instance number or ID. Once the task has completed, execute the
-same command again, this time replacing `#` with the other node's
-number or ID.
+After the database has been validated, and a node to become master
+is chosen, SSH into the node via `bosh ssh postgres/#` and then 
+execute  `/var/vcap/jobs/postgres/bin/recover` as root. This node 
+will then become master.
+
+Once the script executes successfully, then SSH into the other node
+via `bosh ssh postgres/#` and then execute 
+`/var/vcap/jobs/postgres/bin/recover` as root. This node will then
+replicate from the new master.
+
+You will now have a nominal Postgres running.
