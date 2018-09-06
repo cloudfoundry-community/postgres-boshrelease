@@ -166,6 +166,11 @@ nodes are master (split-brain), both immediately shut down to prevent
 inconsistent data states. *This will result in downtime*. But we
 downtime is preferable over inconsistent database states.
 
+However, this mitigation is not a silver bullet; it is possible that
+prolonged network outage between the two nodes will prevent them from
+checking who is master, and will continue to operate in split-brain
+fashion. We do not attempt to solve this.
+
 ### Recovery From Failure Mode
 
 After the proper database is chosen to be master, SSH into that node,
