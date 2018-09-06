@@ -13,8 +13,8 @@ is_master() {
 
   # psql can experience transient issues (like connection reset)
   # make is_master more resilient against these kinds of errors
-  declare -i error_count=0
-  while [[ $error_count < 3 ]] ; do
+  error_count=0
+  while (( $error_count < 3 )) ; do
     tf=$(echo $(psql $opts postgres -t -c 'SELECT pg_is_in_recovery()' 2>&1));
     
     if [[ "$tf" == "f" ]]; then

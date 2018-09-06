@@ -156,7 +156,7 @@ The following parameters affect high availability:
 Our HA solution is focused on preventing downtime in the face of
 upgrades or other single-node failure. As such, we do not attempt to
 solve scenarios where the two databases cannot communicate with one
-another (e.g. network failure). In this case, it is possible that the
+another (e.g. network partition). In this case, it is possible that the
 replica believes the master to be down, and will promote itself to be
 master. The Postgres servers are then in a state of "split-brain" and
 requests to the DB will be split between the two nodes.
@@ -164,7 +164,7 @@ requests to the DB will be split between the two nodes.
 To mitigate this, each node checks to see who is master. If both
 nodes are master (split-brain), both immediately shut down to prevent
 inconsistent data states. *This will result in downtime*. But we
-downtime is preferable over inconsistent database states.
+believe downtime is preferable over inconsistent database states.
 
 However, this mitigation is not a silver bullet; it is possible that
 prolonged network outage between the two nodes will prevent them from
@@ -173,10 +173,8 @@ fashion. We do not attempt to solve this.
 
 ### Recovery From Failure Mode
 
-After the proper database is chosen to be master, SSH into that node,
-become root, and monit start `monitor`, `postgres`, and `haproxy`.
-
-Then, SSH into the replica node, become root, and monit start
-`monitor`, `postgres`, and `haproxy`.
-
-The Postgres nodes will then run as normal.
+After the proper database is chosen to be master, run 
+`bosh run-errand recover --instance postgres/#` and replace `#` with
+the instance number or ID. Once the task has completed, execute the
+same command again, this time replacing `#` with the other node's
+number or ID.

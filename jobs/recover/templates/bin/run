@@ -1,0 +1,26 @@
+#!/bin/bash
+set -u # report the usage of uninitialized variables
+
+running_processes=$(ps cax | grep -Po "(haproxy)|(postgres)|(monitor)")
+if [[ ! -z "$running_processes" ]]; then
+  echo "Services are currently running on this node that should've been stopped."
+  echo "Currently running services that should not be running:"
+  echo "$running_processes"
+  EXITSTATUS=1
+else
+  /var/vcap/bosh/bin/monit start monitor
+  /var/vcap/bosh/bin/monit start postgres
+  /var/vcap/bosh/bin/monit start haproxy
+  EXITSTATUS=0
+  sleep 2
+  if [[ $(ps cax | grep -Pzo "(?s)^(?=.*\monitor\b)(?=.*\bpostgres\b)(?=.*\bhaproxy\b).*$") ]] ; then
+    echo "Failed to start procceses."
+    /var/vcap/bosh/bin/monit status
+    EXITSTATUS=1
+  else
+    echo "All processes are now running."
+  fi
+fi
+echo "---------------------------------------------"
+echo "Errand recover is complete; exit status $EXITSTATUS"
+exit $EXITSTATUS
