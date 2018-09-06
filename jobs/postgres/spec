@@ -8,6 +8,8 @@ templates:
   bin/healthy: bin/healthy
   bin/monitor: bin/monitor
 
+  bin/recover: bin/recover
+
   bin/functions: bin/functions
 
   data/properties.sh.erb: data/properties.sh

@@ -10,9 +10,27 @@ is_master() {
   else
     opts="$opts -p <%= p('postgres.config')["port"] || 6432 %>"
   fi
-  tf=$(echo $(psql $opts postgres -t -c 'SELECT pg_is_in_recovery()' 2>/dev/null));
-  if [[ "$tf" == "f" ]]; then
-    return 0
-  fi
-  return 1
+
+  # psql can experience transient issues (like connection reset)
+  # make is_master more resilient against these kinds of errors
+  error_count=0
+  while (( $error_count < 3 )) ; do
+    tf=$(echo $(psql $opts postgres -t -c 'SELECT pg_is_in_recovery()' 2>&1));
+    
+    if [[ "$tf" == "f" ]]; then
+      return 0
+    elif [[ "$tf" == "t" || "$tf" =~ (could not connect to server)|(starting up) ]]; then
+      return 1
+    else
+      echo "[monitor] received unexpected response from postgres DB while checking master/replica status:"
+      echo "[monitor] $tf"
+      ((error_count++))
+      echo "[monitor] will attempt to check master/replica status again (check $error_count of 3)"
+      sleep 1
+      continue
+    fi
+  done
+  # we errored out 3 times, return that other node is not master
+  echo "[monitor] couldn't determine who was master or replica due to postgres errors. assuming i'm master."
+  return 1 
 }

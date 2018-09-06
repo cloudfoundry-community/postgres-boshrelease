@@ -150,3 +150,37 @@ The following parameters affect high availability:
 
   - `vip.vip` - Which IP to use as a VIP that is traded between the
     two nodes.
+
+### HA Failure Modes
+
+Our HA solution is focused on preventing downtime in the face of
+upgrades or other single-node failure. As such, we do not attempt to
+solve scenarios where the two databases cannot communicate with one
+another (e.g. network partition). In this case, it is possible that the
+replica believes the master to be down, and will promote itself to be
+master. The Postgres servers are then in a state of "split-brain" and
+requests to the DB will be split between the two nodes.
+
+To mitigate this, each node checks to see who is master. If both
+nodes are master (split-brain), both immediately shut down to prevent
+inconsistent data states. *This will result in downtime*. But we
+believe downtime is preferable over inconsistent database states.
+
+However, this mitigation is not a silver bullet; it is possible that
+prolonged network outage between the two nodes will prevent them from
+checking who is master, and will continue to operate in split-brain
+fashion. We do not attempt to solve this.
+
+### Recovery From Failure Mode
+
+After the database has been validated, and a node to become master
+is chosen, SSH into the node via `bosh ssh postgres/#` and then 
+execute  `/var/vcap/jobs/postgres/bin/recover` as root. This node 
+will then become master.
+
+Once the script executes successfully, then SSH into the other node
+via `bosh ssh postgres/#` and then execute 
+`/var/vcap/jobs/postgres/bin/recover` as root. This node will then
+replicate from the new master.
+
+You will now have a nominal Postgres running.
