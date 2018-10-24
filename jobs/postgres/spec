@@ -123,3 +123,7 @@ properties:
               - hedgehog
             extensions: # optional array of extensions to enable on this database
               - citext
+
+  postgres.recovery_time:
+    descripton: time in seconds that a child node will wait before promoting itself to master
+    default: 10
