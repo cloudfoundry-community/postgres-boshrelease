@@ -13,7 +13,7 @@ is_master() {
 
   # psql can experience transient issues (like connection reset)
   # make is_master more resilient against these kinds of errors
-  error_tolerance= <%= p('postgres.recover_time')|| 9 %>
+  error_tolerance=<%= p('postgres.replication.psql_error_count') %>
   error_count=0
   while (( $error_count < $error_tolerance )) ; do
     tf=$(echo $(psql $opts postgres -t -c 'SELECT pg_is_in_recovery()' 2>&1));
@@ -31,7 +31,7 @@ is_master() {
       continue
     fi
   done
-  # we errored out however many times, return that other node is not master
+  # we errored out <%= p('postgres.replication.psql_error_count') %> times, return that other node is not master
   echo "[monitor] couldn't determine who was master or replica due to postgres errors. assuming i'm master."
   return 1 
 }

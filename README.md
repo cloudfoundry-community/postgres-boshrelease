@@ -145,6 +145,13 @@ The following parameters affect high availability:
     the faster your cluster will failover, but the higher a risk
     of accidental failover and split-brain.  Defaults to `5`.
 
+  - `postgres.replication.psql_error_count` - How many failed PSQL
+    commands allowed before considering it a failure. The health
+    checks are PSQL commands executed every second. Poor network
+    conditions may result in a "Connection dropped" PSQL error.
+    The lower this value, the higher potential for accidental
+    failover and split-brain. Defaults to `3`.
+
   - `vip.readonly_port` - Which port to access the read-only node
     of the cluster. Defaults to `7542`.
 
