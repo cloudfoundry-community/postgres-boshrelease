@@ -99,13 +99,15 @@ properties:
   postgres.replication.master:
     description: IP address of the preferred master node (should be the 0th postgres node's IP)
     default: ~
-
   postgres.replication.grace:
     description: Grace period (in seconds) to look for an existing PostgreSQL master node on boot.
     default: 15
   postgres.replication.connect_timeout:
-    description: How long (in seconds) to wait before timimg out a failover health check from one node to the other.
+    description: How long (in seconds) to wait before timing out a failover health check from one node to the other.
     default: 5
+  postgres.replication.psql_error_count:
+    description: How many failed attempts to check the other node's status before assuming failure.
+    default: 3
 
   postgres.users:
     description: "A list of {username: ..., password: ...} objects for defining PostgreSQL users.  Setting the 'admin:' key on a user will make them a superuser."
