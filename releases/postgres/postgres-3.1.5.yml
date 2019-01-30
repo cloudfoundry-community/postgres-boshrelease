@@ -1,0 +1,42 @@
+name: postgres
+version: 3.1.5
+commit_hash: 763bfda
+uncommitted_changes: false
+jobs:
+- name: postgres
+  version: d736b096cbe7854bf0cb11b6471ba7fac89eaf8e
+  fingerprint: d736b096cbe7854bf0cb11b6471ba7fac89eaf8e
+  sha1: 45fc0124c13056a8f93896bace65391138d83220
+- name: smoke-tests
+  version: ad59026e232d3ea9d4ddf1149272efc4d62758c9
+  fingerprint: ad59026e232d3ea9d4ddf1149272efc4d62758c9
+  sha1: 2fa9c9d727486ae2a07793543a0a99e7531e26fe
+- name: vip
+  version: 2ca0e176c2c6a22b69ef76dd046c0056b828fa9f
+  fingerprint: 2ca0e176c2c6a22b69ef76dd046c0056b828fa9f
+  sha1: e2392d30b7c2a66017697b206934247fe109ab06
+packages:
+- name: haproxy
+  version: 888c05456b91cb06db85659acc774fcabbfd09e7
+  fingerprint: 888c05456b91cb06db85659acc774fcabbfd09e7
+  sha1: 401b275ffde0759b3704752bdd371427ab65d81a
+  dependencies: []
+- name: keepalived
+  version: a8e18e8e2a5159e933377c8d8af36978a1f4cbf0
+  fingerprint: a8e18e8e2a5159e933377c8d8af36978a1f4cbf0
+  sha1: 95a91213757f17fc42eb473a44ff7929945d39bc
+  dependencies: []
+- name: pgrt
+  version: fdec5588f5c2c34039820660d73ae0055709f8bc
+  fingerprint: fdec5588f5c2c34039820660d73ae0055709f8bc
+  sha1: 893ef5ada4c01fceb214b57d3029feed81fced54
+  dependencies: []
+- name: postgres
+  version: f72ef4e8dc8355070f22f8fe99a3e6a1e8355a9b
+  fingerprint: f72ef4e8dc8355070f22f8fe99a3e6a1e8355a9b
+  sha1: a8695b72e9f3f4af2a56dfa2e7dafced627d9506
+  dependencies: []
+license:
+  version: f0f6caa3fde87a6d14a5faaf366b31155ccf78a0
+  fingerprint: f0f6caa3fde87a6d14a5faaf366b31155ccf78a0
+  sha1: 1cf953bbf657fc5bfb8bdc14f401435e25ed1665
