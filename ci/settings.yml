@@ -1,14 +1,18 @@
 ---
 meta:
   name:    postgres
+  release: PostgreSQL BOSH Release
   target:  pipes
   url:     https://pipes.starkandwayne.com
-  # test-errands: smoke-tests
 
   initial_version: 1.0.0
 
+  git:
+    email: ci@starkandwayne.com
+    name:  Stark & Wayne CI Bot
+
   bosh-lite:
-    target: https://10.200.131.9:25555
+    target:   https://10.128.4.73:25555
     username: ((thunder-dome.username))
     password: ((thunder-dome.password))
     cacert:   ((thunder-dome.ca-certificate))
@@ -21,11 +25,10 @@ meta:
     owner:  cloudfoundry-community
     repo:   postgres-boshrelease
     branch: master
-    private_key:  ((github.private-key))
-    access_token: ((github.access-token))
+    private_key:  ((starkandwayne-bot-github.private-key))
+    access_token: ((starkandwayne-bot-github.access-token))
 
-  slack:
-    webhook: ((slack.webhook))
-    channel:  '#postgres-boshrelease'
-    username: starkandwayne-ci
-    icon:     https://www.starkandwayne.com/assets/images/shield-blue-50x50.png
+  shout:
+    url:      http://10.128.4.65:7109
+    username: ((shout.username))
+    password: ((shout.password))
