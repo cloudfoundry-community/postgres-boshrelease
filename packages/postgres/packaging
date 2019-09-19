@@ -9,7 +9,7 @@ CPUS=$(grep -c ^processor /proc/cpuinfo)
 export HOME=/var/vcap
 
 # see https://ftp.postgresql.org/pub/source/v9.5.1/postgresql-9.5.1.tar.bz2
-VERSION=9.5.1
+VERSION=9.5.19
 tar -xjf postgres/postgresql-${VERSION}.tar.bz2
 cd postgresql-${VERSION}/
 patch -p1 <<EOF

@@ -18,7 +18,7 @@ pgrt/pgrt:
   size: 7391896
   object_id: b7968265-d373-404d-b6e0-12caa15f9f98
   sha: 2f6c7cc5a7b89712be68f2663fdf3fa9f997a2fa
-postgres/postgresql-9.5.1.tar.bz2:
-  size: 18441638
-  object_id: c3acc49c-a9ec-49a1-ae82-e97a00672695
-  sha: 905bc31bc4d500e9498340407740a61835a2022e
+postgres/postgresql-9.5.19.tar.bz2:
+  size: 17571998
+  object_id: 4a462d10-fbdb-4328-5a92-451f16a0219d
+  sha: 9b0dcf4940e47c857200f37b8f4b00421a087958
