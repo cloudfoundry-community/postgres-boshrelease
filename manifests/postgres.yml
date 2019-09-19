@@ -2,73 +2,66 @@
 name: postgres
 
 instance_groups:
-- azs:
-  - z1
-  name: postgres
-  networks:
-  - name: default
-  persistent_disk_type: default
-  stemcell: default
-  vm_type: default
-  instances: 1
-  jobs:
   - name: postgres
-    properties:
-      postgres:
-        config:
-          max_connections: 500
-        databases:
-        - extensions:
-          - citext
-          name: diegodb
-          users:
-          - hank
-        - extensions:
-          - citext
-          name: uaadb
-          users:
-          - hank
-        - extensions:
-          - citext
-          name: ccdb
-          users:
-          - hank
-        hba:
-        - host all all 0.0.0.0/0 md5
-        - host all all ::/0 md5
-        users:
-        - admin: true
-          password: propane
-          username: hank
-    release: postgres
+    azs: [z1]
+    networks: [{name: default }]
+    persistent_disk: 2048
+    stemcell: default
+    vm_type: default
+    instances: 1
+    jobs:
+      - name: postgres
+        release: postgres
+        properties:
+          postgres:
+            config:
+              max_connections: 500
+            databases:
+              - name:       diegodb
+                extensions: [citext]
+                users:      [hank]
 
+              - name:       uaadb
+                extensions: [citext]
+                users:      [hank]
 
-- azs:
-  - z1
-  name: smoke-tests
-  instances: 1
-  lifecycle: errand
-  networks:
-  - name: default
-  stemcell: default
-  vm_type: default
-  jobs:
+              - name:       ccdb
+                extensions: [citext]
+                users:      [hank]
+
+            hba:
+              - host all all 0.0.0.0/0 md5
+              - host all all ::/0 md5
+
+            users:
+              - username: hank
+                password: propane
+                admin: true
+
   - name: smoke-tests
-    properties:
-      postgres:
-        smoke-tests:
-          backend:
-            port: 6432
-          target:
-            port: 5432
-            username: hank
-            password: propane
-    release: postgres
+    instances: 1
+    azs: [z1]
+    lifecycle: errand
+    networks: [{name: default}]
+    stemcell: default
+    vm_type: default
+    jobs:
+      - name: smoke-tests
+        release: postgres
+        properties:
+          postgres:
+            smoke-tests:
+              backend:
+                port: 6432
+              target:
+                port: 5432
+                username: hank
+                password: propane
 
 stemcells:
-- alias: default
-  os: ubuntu-trusty
-  version: latest
+  - alias:   default
+    os:      ubuntu-xenial
+    version: latest
 
 update:
   canaries: 1
