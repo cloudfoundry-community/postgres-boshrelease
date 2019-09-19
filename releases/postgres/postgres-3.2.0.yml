@@ -1,0 +1,50 @@
+name: postgres
+version: 3.2.0
+commit_hash: c051ada
+uncommitted_changes: false
+jobs:
+- name: postgres
+  version: 30216c368dd387301996cae4a65700940f40c828b46ff101e03da6558da25121
+  fingerprint: 30216c368dd387301996cae4a65700940f40c828b46ff101e03da6558da25121
+  sha1: sha256:1285cea7b26518a7117b2863aac26caefe5c177ff213af99c49a5daa4e1435a1
+  packages:
+  - postgres
+- name: smoke-tests
+  version: a08dc385aacde0fd9a3526177551a4de293fa9056e8f2228110e6c083fdca7c9
+  fingerprint: a08dc385aacde0fd9a3526177551a4de293fa9056e8f2228110e6c083fdca7c9
+  sha1: sha256:a246ef95120c757dd8740856b29735f70429b02fc6db1edd1c093b5a9f42b84e
+  packages:
+  - postgres
+  - pgrt
+- name: vip
+  version: c532352928175597d9e2e6968a7c0cc9eec4877a76cefde1152c8b3efefaabe4
+  fingerprint: c532352928175597d9e2e6968a7c0cc9eec4877a76cefde1152c8b3efefaabe4
+  sha1: sha256:65ed036a08ac3fdd232071853807d02c87d42be9ecd9539aa94f8f94d94e315c
+  packages:
+  - haproxy
+  - keepalived
+packages:
+- name: haproxy
+  version: aa51a5ba97479ee10e1583d0c9f33b56cded83c44d1fc6500a73d5bfb91083b4
+  fingerprint: aa51a5ba97479ee10e1583d0c9f33b56cded83c44d1fc6500a73d5bfb91083b4
+  sha1: sha256:03af57399c9efc0c0cff0cc95c3bc2764e9617b2178a3bff8f08db8451ca1a08
+  dependencies: []
+- name: keepalived
+  version: 14aa689351e2083295d9f29e17330f15c4b21e775773f3e1f393395b212dd733
+  fingerprint: 14aa689351e2083295d9f29e17330f15c4b21e775773f3e1f393395b212dd733
+  sha1: sha256:fc5e7c66d1e098ee30229a32b77937cc1a47f89ebd3599653bae1e08ae074f1f
+  dependencies: []
+- name: pgrt
+  version: bc2478b5e358ecc6fc2859e5e7125f6a562eaf21c290878b56571eca63db5775
+  fingerprint: bc2478b5e358ecc6fc2859e5e7125f6a562eaf21c290878b56571eca63db5775
+  sha1: sha256:131df4a02f3eb3ee589d25ee1c7746171e74e5801fd1244ded292fc5412a47e4
+  dependencies: []
+- name: postgres
+  version: afffbdce123957c1fd39f7697356808668ff3748640fccc629c8024baf2adcbe
+  fingerprint: afffbdce123957c1fd39f7697356808668ff3748640fccc629c8024baf2adcbe
+  sha1: sha256:33504b684ea0cbdec04b94ea1e0f2e3880f3338b2cb2500a29081d041fd5d0a8
+  dependencies: []
+license:
+  version: 16e4c2be65fa47859c0a2f40863170aba8a4b005b074e5be267b855b01907b6b
+  fingerprint: 16e4c2be65fa47859c0a2f40863170aba8a4b005b074e5be267b855b01907b6b
+  sha1: sha256:00c81214e4d7e2af778b3f2d6e07f2ed1bf8b08d6ee3116b959dc9b654f38492
