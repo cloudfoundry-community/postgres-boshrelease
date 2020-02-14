@@ -28,9 +28,12 @@ properties:
     default: 30
 
   postgres.smoke-tests.backend.port:
-    description: Port that PostgreSQL itself (not PGPoolII) is listening on, for replication health checking.
+    description: Port that PostgreSQL itself (not HAProxy) is listening on, for replication health checking.
     default: 6432
 
   postgres.smoke-tests.thresholds.replication-lag:
     description: Maximum allowable replication lag for any single read slave from master (in kb).
     default: 64
+  postgres.smoke-tests.replication.enabled:
+    description: Whether or not replication is enabled for Postgres.
+    default: false
