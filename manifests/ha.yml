@@ -69,11 +69,13 @@ instance_groups:
             port: 5432
             username: hank
             password: propane
+          replication:
+            enabled: true
     release: postgres
 
 stemcells:
 - alias: default
-  os: ubuntu-trusty
+  os: ubuntu-xenial
   version: latest
 
 update:

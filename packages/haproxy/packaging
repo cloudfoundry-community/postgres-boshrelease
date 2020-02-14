@@ -1,9 +1,9 @@
 # abort script on any command that exit with a non zero value
 set -e
 
-PCRE_VERSION=10.31
+PCRE_VERSION=10.33
 SOCAT_VERSION=1.7.3.1
-HAPROXY_VERSION=1.8.10
+HAPROXY_VERSION=1.8.23
 
 mkdir ${BOSH_INSTALL_TARGET}/bin
 

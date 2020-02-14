@@ -7,6 +7,10 @@ link("db").instances.each do |instance|
     slaves.push(instance.address)
   end
 end
+
+pgs = link("db").instances
+replication = p('postgres.smoke-tests.replication.enabled', false) && pgs.size() > 1
+clusterport = (replication ? p('postgres.smoke-tests.backend.port') : p('postgres.smoke-tests.target.port'))
 %>
 
 set -u # report the usage of uninitialized variables
@@ -21,7 +25,7 @@ check() {
          -S <%= slave %> \<% end %>
          -u <%= p('postgres.smoke-tests.target.username') %> \
          -w <%= p('postgres.smoke-tests.target.password') %> \
-         -p <%= p('postgres.smoke-tests.backend.port') %> \
+         -p <%= clusterport %> \
          -l <%= p('postgres.smoke-tests.thresholds.replication-lag', 64) * 1024 %>
     return $?
 }

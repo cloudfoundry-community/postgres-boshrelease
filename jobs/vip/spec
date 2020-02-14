@@ -25,7 +25,7 @@ properties:
 
   readonly_port:
     description: Port for external access that is routed directly to readonly Postgres server node
-    default: 7423
+    default: 7432
 
   port:
     description: What port to listen on for incoming PostgreSQL connections
