@@ -1,15 +1,15 @@
-haproxy/haproxy-1.8.23.tar.gz:
-  size: 2101424
-  object_id: 412b752e-df6c-4c96-4a8b-45b613b3b1e1
-  sha: sha256:de919164876ee0501e1ef01ca5ccc0d3bda2b96003f9d240f7b856010ccbf7eb
-haproxy/pcre2-10.33.tar.gz:
-  size: 2234905
-  object_id: a3a0c974-dae1-411d-4e3c-4e97f9bd4a00
-  sha: sha256:e2e2899a97489fc6ad1b0cc3da7952c7cca991b4a0f7db6649b75d9721025d31
-haproxy/socat-1.7.3.1.tar.gz:
-  size: 606049
-  object_id: abe408af-41c4-49a2-7209-62d64c8efd3f
-  sha: a6f1d8ab3e85f565dbe172f33a9be6708dd52ffb
+haproxy/haproxy-1.8.30.tar.gz:
+  size: 2214184
+  object_id: 36a3b7a6-93d2-44d7-4ac3-bf2b05b53c07
+  sha: sha256:066bfd9a0e5a3550fa621886a132379e5331d0c377e11f38bb6e8dfbec92be42
+haproxy/pcre2-10.39.tar.bz2:
+  size: 1730729
+  object_id: fb71fe0d-76ff-4f68-4f98-b9a127f26b55
+  sha: sha256:0f03caf57f81d9ff362ac28cd389c055ec2bf0678d277349a1a4bee00ad6d440
+haproxy/socat-1.7.3.4.tar.bz2:
+  size: 490552
+  object_id: 7b1fb8a0-5307-4e4a-432a-8955a48bf90b
+  sha: sha256:972374ca86f65498e23e3259c2ee1b8f9dbeb04d12c2a78c0c9b5d1cb97dfdfc
 keepalived/keepalived-1.2.24.tar.gz:
   size: 601873
   object_id: 09205505-e300-42b0-6513-24d4c4388960
@@ -18,7 +18,7 @@ pgrt/pgrt:
   size: 7391896
   object_id: b7968265-d373-404d-b6e0-12caa15f9f98
   sha: 2f6c7cc5a7b89712be68f2663fdf3fa9f997a2fa
-postgres/postgresql-9.5.21.tar.bz2:
-  size: 17640928
-  object_id: 90c4c9f7-cf6d-49d5-4511-bd27ccc25061
-  sha: sha256:7eb56e4fa877243c2df78adc5a0ef02f851060c282682b4bb97b854100fb732c
+postgres/postgresql-9.5.25.tar.bz2:
+  size: 17923796
+  object_id: c6278164-6fd6-4a10-53ea-1208421e2ba3
+  sha: sha256:7628c55eb23768a2c799c018988d8f2ab48ee3d80f5e11259938f7a935f0d603

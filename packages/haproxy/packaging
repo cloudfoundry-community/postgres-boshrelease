@@ -1,14 +1,14 @@
 # abort script on any command that exit with a non zero value
 set -e
 
-PCRE_VERSION=10.33
-SOCAT_VERSION=1.7.3.1
-HAPROXY_VERSION=1.8.23
+PCRE_VERSION=10.39
+SOCAT_VERSION=1.7.3.4
+HAPROXY_VERSION=1.8.30
 
 mkdir ${BOSH_INSTALL_TARGET}/bin
 
 echo "Extracting pcre..."
-tar xzf haproxy/pcre2-${PCRE_VERSION}.tar.gz
+tar xjf haproxy/pcre2-${PCRE_VERSION}.tar.bz2
 pushd pcre2-${PCRE_VERSION}
   ./configure --prefix ${BOSH_INSTALL_TARGET}
   make
@@ -16,7 +16,7 @@ pushd pcre2-${PCRE_VERSION}
 popd
 
 echo "Installing socat..."
-tar xzf haproxy/socat-${SOCAT_VERSION}.tar.gz
+tar xjf haproxy/socat-${SOCAT_VERSION}.tar.bz2
 pushd socat-${SOCAT_VERSION}
   ./configure
   make
