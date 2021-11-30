@@ -72,6 +72,6 @@ update:
 
 releases:
 - name:    postgres
-  version: 3.2.1
-  url:     https://github.com/cloudfoundry-community/postgres-boshrelease/releases/download/v3.2.1/postgres-3.2.1.tgz
-  sha1:    b687753085f770807603642b4bae6c17a483900b
+  version: 3.2.2
+  url:     https://github.com/cloudfoundry-community/postgres-boshrelease/releases/download/v3.2.2/postgres-3.2.2.tgz
+  sha1:    7699715ed0b7ec129f60958e2864958030333cea
