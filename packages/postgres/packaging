@@ -1,31 +1,22 @@
 #!/bin/bash
+
 set -eu
 
-# Detect # of CPUs so make jobs can be parallelized
-CPUS=$(grep -c ^processor /proc/cpuinfo)
- # Available variables
-# $BOSH_COMPILE_TARGET - where this package & spec'd source files are available
-# $BOSH_INSTALL_TARGET - where you copy/install files to be included in package
 export HOME=/var/vcap
 
-# see https://ftp.postgresql.org/pub/source/v9.5.1/postgresql-9.5.1.tar.bz2
-VERSION=9.5.25
-tar -xjf postgres/postgresql-${VERSION}.tar.bz2
-cd postgresql-${VERSION}/
-patch -p1 <<EOF
-diff -u -ur postgresql-9.5.1.pristine/src/include/pg_config_manual.h postgresql-9.5.1/src/include/pg_config_manual.h
---- postgresql-9.5.1.pristine/src/include/pg_config_manual.h	2016-02-08 16:12:28.000000000 -0500
-+++ postgresql-9.5.1/src/include/pg_config_manual.h	2016-11-01 22:21:21.000000000 -0400
-@@ -169,7 +169,7 @@
-  * here's where to twiddle it.  You can also override this at runtime
-  * with the postmaster's -k switch.
-  */
--#define DEFAULT_PGSOCKET_DIR  "/tmp"
-+#define DEFAULT_PGSOCKET_DIR  "/var/vcap/sys/run/postgres"
- 
- /*
-  * This is the default event source for Windows event log.
-EOF
-./configure --prefix ${BOSH_INSTALL_TARGET}
-make world
+processors=$(grep -c ^processor /proc/cpuinfo)
+version="16.4" # https://ftp.postgresql.org/pub/source/v16.4/postgresql-16.4.tar.bz2
+
+tar -jxf postgres/postgresql-${version}.tar.bz2
+
+cd postgresql-${version}/
+
+# Set the default socket directory to /var/vcap/sys/run/postgres
+sed -i -e 's%#define DEFAULT_PGSOCKET_DIR.*$%#define DEFAULT_PGSOCKET_DIR  "/var/vcap/sys/run/postgres"%' \
+  src/include/pg_config_manual.h
+
+./configure --prefix "${BOSH_INSTALL_TARGET}"
+
+make -j"${processors}" world
+
 make install-world

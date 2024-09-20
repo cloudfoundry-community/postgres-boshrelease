@@ -1,5 +1,7 @@
 ---
 name: postgres
+
 dependencies: []
+
 files:
- - postgres/postgresql-9.5.25.tar.bz2
+ - postgres/postgresql-*
